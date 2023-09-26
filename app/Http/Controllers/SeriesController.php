@@ -70,9 +70,7 @@ class SeriesController extends Controller
                 $request->episodesPerSeason
             );
 
-            Mail::to($request->user())->send($email);
-
-            Sleep(2);
+            Mail::to($user)->queue($email);
 
         }
 
