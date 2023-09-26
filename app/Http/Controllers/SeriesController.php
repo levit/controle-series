@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Autenticador;
-use App\Http\Requests\SeriesFormRequest;
-use App\Mail\SeriesCreated;
+use App\Models\User;
 use App\Models\Serie;
-use App\Repositories\Interfaces\SeriesRepository;
-use Illuminate\Support\Facades\Mail;
-
+use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Middleware\Autenticador;
+
+use App\Http\Requests\SeriesFormRequest;
+use App\Repositories\Interfaces\SeriesRepository;
 
 class SeriesController extends Controller
 {
@@ -34,9 +35,10 @@ class SeriesController extends Controller
 
         //$series = Serie::active()->get();  = Traz somente registro configurado no scopo (dentro da Classe Serie)
         //$series = Serie::with(['seasons'])->get();
-        $series = Serie::all();
 
-        $mensagemSucesso = $request->session()->get('mensagem.sucesso');
+        $series = Serie::all();
+         $mensagemSucesso = $request->session()->get('mensagem.sucesso');
+
         //$request->session()->forget('mensagem.sucesso');
 
         return view('series.index')
@@ -57,14 +59,22 @@ class SeriesController extends Controller
 
         $serie = $this->repository->add($request);
 
-        $email = new SeriesCreated(
-            $serie->id,
-            $serie->nome,
-            $request->seasonsQty,
-            $request->episodesPerSeason
-        );
+        $userList = User::all();
 
-        Mail::to($request->user()->send($email));
+        foreach ($userList as $user) {
+
+            $email = new SeriesCreated(
+                $serie->id,
+                $serie->nome,
+                $request->seasonsQty,
+                $request->episodesPerSeason
+            );
+
+            Mail::to($request->user())->send($email);
+
+            Sleep(2);
+
+        }
 
         return redirect()->route('series.index')
             -> with('mensagem.sucesso', "Série '{$serie->nome}' incluía com sucesso");
