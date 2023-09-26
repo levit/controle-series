@@ -31,7 +31,7 @@ class SeriesController extends Controller
 
         //$series = Serie::all('nome');
         //DB::select('select nome from series;');
-        //$series = Serie::query()->orderBy('nome')->get(); = Transferido para a Classe padrÃ£o Serie
+        //$series = Serie::query()->orderBy('nome')->get(); = Transferido para a Classe padrÃÂ£o Serie
 
         //$series = Serie::active()->get();  = Traz somente registro configurado no scopo (dentro da Classe Serie)
         //$series = Serie::with(['seasons'])->get();
@@ -75,7 +75,7 @@ class SeriesController extends Controller
         }
 
         return redirect()->route('series.index')
-            -> with('mensagem.sucesso', "Série '{$serie->nome}' incluía com sucesso");
+            -> with('mensagem.sucesso', "Série '{$serie->nome}' incluída com sucesso");
 
         /*
         if (DB::insert('INSERT INTO series (nome) values (?)', [$nomeSerie])) {
@@ -94,12 +94,12 @@ class SeriesController extends Controller
 
         $series->delete();
 
-        //$request->session()->put('mensagem.sucesso', 'SÃ©rie excluÃ­do com sucesso');
-        //$request->session()->flash('mensagem.sucesso', "SÃ©rie '{$serie->nome}' excluÃ­do com sucesso");
+        //$request->session()->put('mensagem.sucesso', 'Série excluído com sucesso');
+        //$request->session()->flash('mensagem.sucesso', "Série '{$serie->nome}' excluído com sucesso");
 
         //return redirect()->route('series.index');
         return redirect()->route('series.index')
-            ->with('mensagem.sucesso', "SÃ©rie '{$series->nome}' excluÃ­do com sucesso");
+            ->with('mensagem.sucesso', "Série '{$series->nome}' excluído com sucesso");
     }
 
     public function edit(Serie $series)
@@ -118,7 +118,7 @@ class SeriesController extends Controller
         $series->save();
 
         return redirect()->route('series.index')
-            ->with('mensagem.sucesso', "SÃ©rie '{$series->nome}' atualizado com sucesso");
+            ->with('mensagem.sucesso', "Série '{$series->nome}' atualizado com sucesso");
 
     }
 
