@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Sistema SÃ©ries'),
+    'name' => env('APP_NAME', 'Sistema Séries'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://laravel.localhost'),
+    'url' => env('APP_URL', 'http://sistolica.alura.localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-        
+
 
         /*
          * Application Service Providers...
@@ -177,8 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        
-        
+
+
         /*
          * Providers Service Providers...
          */
