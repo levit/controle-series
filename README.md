@@ -8,4 +8,4 @@ Laravel é um framework PHP livre e open-source criado por Taylor B. Otwell para 
 
 Nesta formação você vai criar aplicações web utilizando o framework, para agilizar e facilitar o seu trabalho no dia a dia.
 
-Link para o curso *[Formação Laravel](https://www.markdownguide.org)*
+Link para o curso *[Formação Laravel](https://cursos.alura.com.br/formacao-laravel)*
