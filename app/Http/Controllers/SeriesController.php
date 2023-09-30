@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SeriesCreateEvent;
 use App\Models\User;
 use App\Models\Serie;
 use App\Mail\SeriesCreated;
@@ -31,7 +32,7 @@ class SeriesController extends Controller
 
         //$series = Serie::all('nome');
         //DB::select('select nome from series;');
-        //$series = Serie::query()->orderBy('nome')->get(); = Transferido para a Classe padrÃÂ£o Serie
+        //$series = Serie::query()->orderBy('nome')->get(); = Transferido para a Classe padrÃÂÃÂ£o Serie
 
         //$series = Serie::active()->get();  = Traz somente registro configurado no scopo (dentro da Classe Serie)
         //$series = Serie::with(['seasons'])->get();
@@ -59,20 +60,15 @@ class SeriesController extends Controller
 
         $serie = $this->repository->add($request);
 
-        $userList = User::all();
 
-        foreach ($userList as $user) {
+        SeriesCreateEvent::dispatch(
+            $serie->id,
+            $serie->nome,
+            $request->seasonsQty,
+            $request->episodesPerSeason
+        );
 
-            $email = new SeriesCreated(
-                $serie->id,
-                $serie->nome,
-                $request->seasonsQty,
-                $request->episodesPerSeason
-            );
-
-            Mail::to($user)->queue($email);
-
-        }
+        //event($seriesCreateEvent); -> Caso eu queira criar e chamar o evento
 
         return redirect()->route('series.index')
             -> with('mensagem.sucesso', "Série '{$serie->nome}' incluída com sucesso");
@@ -94,12 +90,12 @@ class SeriesController extends Controller
 
         $series->delete();
 
-        //$request->session()->put('mensagem.sucesso', 'Série excluído com sucesso');
-        //$request->session()->flash('mensagem.sucesso', "Série '{$serie->nome}' excluído com sucesso");
+        //$request->session()->put('mensagem.sucesso', 'SÃ©rie excluÃ­do com sucesso');
+        //$request->session()->flash('mensagem.sucesso', "SÃ©rie '{$serie->nome}' excluÃ­do com sucesso");
 
         //return redirect()->route('series.index');
         return redirect()->route('series.index')
-            ->with('mensagem.sucesso', "Série '{$series->nome}' excluído com sucesso");
+            ->with('mensagem.sucesso', "SÃ©rie '{$series->nome}' excluÃ­do com sucesso");
     }
 
     public function edit(Serie $series)
@@ -118,7 +114,7 @@ class SeriesController extends Controller
         $series->save();
 
         return redirect()->route('series.index')
-            ->with('mensagem.sucesso', "Série '{$series->nome}' atualizado com sucesso");
+            ->with('mensagem.sucesso', "SÃ©rie '{$series->nome}' atualizado com sucesso");
 
     }
 
