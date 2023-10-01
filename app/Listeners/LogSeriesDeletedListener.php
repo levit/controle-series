@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\SeriesCreatedEvent;
+use App\Events\SeriesDeletedEvent;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogSeriesCreatedListener implements ShouldQueue
+class LogSeriesDeletedListener implements ShouldQueue
 {
     use InteractsWithQueue;
 
@@ -24,11 +24,11 @@ class LogSeriesCreatedListener implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  App\Events\SeriesCreatedEvent  $event
+     * @param  App\Events\SeriesDeletedEvent  $event
      * @return void
      */
-    public function handle(SeriesCreatedEvent $event)
+    public function handle(SeriesDeletedEvent $event)
     {
-        Log::info("Serie '{$event->nome}' com id '{$event->id}' criada com sucesso.");
+        Log::info("Serie '{$event->nome}' com id '{$event->id}' deletada com sucesso.");
     }
 }
