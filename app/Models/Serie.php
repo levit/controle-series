@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Serie extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'cover'];
     public $timestamps = true;
     //protected $with = ['seasons'] = Inclui para sempre trazer a dependencia
 

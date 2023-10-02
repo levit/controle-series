@@ -2,10 +2,11 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
+use App\Models\Serie;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 
 class SeriesDeletedEvent
 {
@@ -13,16 +14,18 @@ class SeriesDeletedEvent
 
     public readonly int $id;
     public readonly string $nome;
+    public readonly string $cover;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(int $id, string $nome)
+    public function __construct(int $id, string $nome, string $cover)
     {
         $this->id = $id;
         $this->nome = $nome;
+        $this->cover = $cover;
     }
 
     /**
@@ -35,3 +38,4 @@ class SeriesDeletedEvent
         return new PrivateChannel('channel-name');
     }
 }
+

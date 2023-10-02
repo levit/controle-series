@@ -7,6 +7,7 @@ use App\Events\SeriesDeletedEvent;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\LogSeriesCreatedListener;
 use App\Listeners\LogSeriesDeletedListener;
+use App\Listeners\DeleteFilesSeriesDeletedListener;
 use App\Listeners\EmailUsersAboutSeriesCreateListener;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
         SeriesDeletedEvent::class =>
         [
             LogSeriesDeletedListener::class,
+            DeleteFilesSeriesDeletedListener::class,
         ]
 
     ];

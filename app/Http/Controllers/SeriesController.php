@@ -43,6 +43,12 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request)
     {
 
+        $coverPath = $request
+            ->file('cover')
+            ->store('series_cover', 'public');
+
+        $request['coverPath'] = $coverPath;
+
         $series = $this->repository->add($request);
 
         SeriesCreatedEvent::dispatch(
@@ -53,19 +59,20 @@ class SeriesController extends Controller
         );
 
         return redirect()->route('series.index')
-            -> with('mensagem.sucesso', "Série '{$series->nome}' incluída com sucesso");
+            -> with('mensagem.sucesso', "Série '{$series->nome}' incluía com sucesso");
 
     }
 
     public function destroy(Serie $series, Request $request)
     {
 
-        $series->delete();
-
         SeriesDeletedEvent::dispatch(
             $series->id,
             $series->nome,
+            $series->cover,
         );
+
+        $series->delete();
 
         return redirect()->route('series.index')
             ->with('mensagem.sucesso', "Série '{$series->nome}' excluído com sucesso");

@@ -18,7 +18,11 @@ class EloquentSeriesRepository implements SeriesRepository
         DB::beginTransaction();
         
         try {
-            $serie = Serie::create($request->all());
+            //$serie = Serie::create($request->all());
+            $serie = Serie::create([
+                'nome' => $request->nome,
+                'cover' => $request->coverPath
+            ]);
             
             /* Modelo 1 de gravação
              for ($i = 1; $i <= $request->seasonsQty; $i++) {
