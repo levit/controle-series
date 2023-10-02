@@ -8,6 +8,7 @@ use App\Events\SeriesCreatedEvent;
 use App\Events\SeriesDeletedEvent;
 use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriesFormRequest;
+use App\Jobs\DeleteFilesSeriesDeletedJob;
 use App\Repositories\Interfaces\SeriesRepository;
 
 class SeriesController extends Controller
@@ -43,9 +44,9 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request)
     {
 
-        $coverPath = $request
-            ->file('cover')
-            ->store('series_cover', 'public');
+        $coverPath = $request->hasFile('cover')
+            ? $request->file('cover')->store('series_cover', 'public')
+            : null;
 
         $request['coverPath'] = $coverPath;
 
@@ -70,6 +71,10 @@ class SeriesController extends Controller
             $series->id,
             $series->nome,
             $series->cover,
+        );
+
+        DeleteFilesSeriesDeletedJob::dispatch(
+            $series->cover
         );
 
         $series->delete();

@@ -32,7 +32,6 @@ class EventServiceProvider extends ServiceProvider
         SeriesDeletedEvent::class =>
         [
             LogSeriesDeletedListener::class,
-            DeleteFilesSeriesDeletedListener::class,
         ]
 
     ];

@@ -1,9 +1,13 @@
 <x-layout title="Séries">
     <img
         width="200px"
-        src="{{asset('storage/'.$series->cover)}}"
+        @if ($series->cover != null)
+          src="{{asset('storage/'.$series->cover)}}"
+        @else
+          src="{{asset('storage/semFoto.png')}}"
+        @endif
         alt="Capa da Série"
-        class="img-fluid mb-3"/>
+        class="img-fluid mb-3 img-thumbnail"/>
 
 	<ul class="list-group">
 		@foreach ($seasons as $season)
