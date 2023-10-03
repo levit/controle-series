@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SeriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(SeriesController::class)->group(function() {
+    Route::get    ('/series', 'index')->name('index');
+    Route::get    ('/series/{id}', 'show')->name('show');
+    Route::post    ('/series', 'store')->name('store');
+    Route::put    ('/series/{id}', 'update')->name('update');
+    Route::delete    ('/series/{id}', 'destroy')->name('destroy');
+
 });

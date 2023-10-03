@@ -79,3 +79,4 @@ Route::middleware('autenticador')->group(function() {
     });
 
 });
+
