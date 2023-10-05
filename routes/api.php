@@ -36,6 +36,7 @@ Route::controller(SeasonsController::class)->group(function() {
 
 Route::controller(EpisodesController::class)->group(function() {
     Route::get    ('/series/{series}/episodes', 'index')->name('index');
+    Route::patch  ('/episodes/{episode}/watch', 'watch')->name('watch');
 });
 
 //Route::get('/series/{series}/episodes', function(Series $series) {

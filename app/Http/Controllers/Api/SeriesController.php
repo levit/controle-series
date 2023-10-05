@@ -20,8 +20,13 @@ class SeriesController extends Controller
 
     public function index(Request $request)
     {
-        $series = Series::all();
-        return $series;
+        $query = Series::query();
+
+        if ($request->has('nome')) {
+            $query->where('nome', $request->nome);
+        }
+
+        return $query->paginate(5);
     }
 
     public function show(int $id, Request $request)
