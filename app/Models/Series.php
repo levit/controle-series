@@ -11,13 +11,17 @@ class Series extends Model
     use HasFactory;
     protected $fillable = ['nome', 'cover'];
     public $timestamps = true;
-    //protected $with = ['seasons'] = Inclui para sempre trazer a dependencia
+    //protected $with = ['seasons']; // = Inclui para sempre trazer a dependencia
 
     public function seasons() {
         return $this->hasMany(Season::class, 'series_id', 'id');
     }
 
-     protected static function booted() {
+    public function episodes() {
+        return $this->hasManyThrough(Episode::class, Season::class);
+    }
+
+    protected static function booted() {
          self::addGlobalScope('ordered', function (Builder $queryBuilder) {
              $queryBuilder->orderBy('nome');
              // $queryBuilder->where('empresa_id','=',1); -> Filtro empresa

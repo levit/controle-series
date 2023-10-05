@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\SeriesRepository;
 
-class SeasonsController extends Controller
+class EpisodesController extends Controller
 {
 
     private SeriesRepository $repository;
@@ -19,7 +19,7 @@ class SeasonsController extends Controller
 
     public function index(Series $series, Request $request)
     {
-        return $series->seasons;
+        return $series->episodes;
     }
 
 }
