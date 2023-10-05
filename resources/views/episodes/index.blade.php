@@ -1,20 +1,20 @@
 <x-layout title="Episódios">
- 
+
 	<form method="post">
 		@csrf
     	<ul class="list-group">
     		@foreach ($episodes as $episode)
     		   <li class="list-group-item d-flex justify-content-between align-items-center">
-    		   	   <label>Temporada {{ $episode->number }}</label>
-  	   		   	   <input type="checkbox" 
-  	   		   	   		  name="episodes[]" 
+    		   	   <label>Episódio {{ $episode->number }}</label>
+  	   		   	   <input type="checkbox"
+  	   		   	   		  name="episodes[]"
   	   		   	   		  value="{{$episode->id}}"
   	   		   	   		  @if ($episode->watched) checked @endif />
     		   </li>
     		@endforeach
     	</ul>
-    	
+
     	<button class="btn btn-primary mt-2 mb-2">Salvar</button>
-	</form> 
+	</form>
 </x-layout>
 

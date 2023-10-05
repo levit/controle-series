@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Serie;
+use App\Models\Series;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
@@ -20,13 +20,13 @@ class SeriesController extends Controller
 
     public function index(Request $request)
     {
-        $series = Serie::all();
+        $series = Series::all();
         return $series;
     }
 
     public function show(int $id, Request $request)
     {
-        $series = Serie::with('seasons.episodes')
+        $series = Series::with('seasons.episodes')
             ->where('id', $id)
             ->first();
 
@@ -39,7 +39,7 @@ class SeriesController extends Controller
 
     public function update(int $id, Request $request)
     {
-        $series = Serie::where('id', $id)
+        $series = Series::where('id', $id)
             ->with('seasons.episodes')
             ->first();
 
@@ -54,7 +54,7 @@ class SeriesController extends Controller
 
     public function destroy(int $id, Request $request)
     {
-        $series = Serie::where('id', $id)
+        $series = Series::where('id', $id)
             ->with('seasons.episodes')
             ->first();
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Serie;
+use App\Models\Series;
 use Illuminate\Http\Request;
 use App\Events\SeriesCreatedEvent;
 use App\Events\SeriesDeletedEvent;
@@ -25,7 +25,7 @@ class SeriesController extends Controller
     public function index(Request $request)
     {
 
-        $series = Serie::all();
+        $series = Series::all();
         $mensagemSucesso = $request->session()->get('mensagem.sucesso');
 
         return view('series.index')
@@ -64,7 +64,7 @@ class SeriesController extends Controller
 
     }
 
-    public function destroy(Serie $series, Request $request)
+    public function destroy(Series $series, Request $request)
     {
 
         SeriesDeletedEvent::dispatch(
@@ -84,7 +84,7 @@ class SeriesController extends Controller
 
     }
 
-    public function edit(Serie $series)
+    public function edit(Series $series)
     {
 
         return view('series.edit')
@@ -92,7 +92,7 @@ class SeriesController extends Controller
 
     }
 
-    public function update(Serie $series, SeriesFormRequest $request)
+    public function update(Series $series, SeriesFormRequest $request)
     {
 
         $series->fill($request->all());

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SeriesController;
+use App\Http\Controllers\Api\SeasonsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(SeriesController::class)->group(function() {
     Route::get    ('/series', 'index')->name('index');
     Route::get    ('/series/{id}', 'show')->name('show');
-    Route::post    ('/series', 'store')->name('store');
+    Route::post   ('/series', 'store')->name('store');
     Route::put    ('/series/{id}', 'update')->name('update');
-    Route::delete    ('/series/{id}', 'destroy')->name('destroy');
+    Route::delete ('/series/{id}', 'destroy')->name('destroy');
 
+});
+
+Route::controller(SeasonsController::class)->group(function() {
+    Route::get    ('/series/{id}/seasons', 'index')->name('index');
 });

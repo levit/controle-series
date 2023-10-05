@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Season;
-use App\Models\Serie;
+use App\Models\Series;
 
 class SeasonsController extends Controller
 {
-    public function index(Serie $series) {
+    public function index(Series $series) {
 
         $seasons = Season::query()
             ->where('series_id', $series->id)
