@@ -3,6 +3,7 @@
 use App\Models\Series;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeasonsController;
 use App\Http\Controllers\Api\EpisodesController;
@@ -22,22 +23,39 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(SeriesController::class)->group(function() {
-    Route::get    ('/series', 'index')->name('index');
-    Route::get    ('/series/{id}', 'show')->name('show');
-    Route::post   ('/series', 'store')->name('store');
-    Route::put    ('/series/{id}', 'update')->name('update');
-    Route::delete ('/series/{id}', 'destroy')->name('destroy');
+Route::controller(LoginController::class)->group(function() {
+    Route::post   ('/login', 'index')->name('index');
 });
 
-Route::controller(SeasonsController::class)->group(function() {
-    Route::get    ('/series/{series}/seasons', 'index')->name('index');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(SeriesController::class)->group(function() {
+        Route::get    ('/series', 'index')->name('index');
+        Route::get    ('/series/{id}', 'show')->name('show');
+        Route::post   ('/series', 'store')->name('store');
+        Route::put    ('/series/{id}', 'update')->name('update');
+        Route::delete ('/series/{id}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(SeasonsController::class)->group(function() {
+        Route::get    ('/series/{series}/seasons', 'index')->name('index');
+    });
+
+    Route::controller(EpisodesController::class)->group(function() {
+        Route::get    ('/series/{series}/episodes', 'index')->name('index');
+        Route::patch  ('/episodes/{episode}/watch', 'watch')->name('watch');
+    });
+
+    Route::controller(EpisodesController::class)->group(function() {
+        Route::get    ('/series/{series}/episodes', 'index')->name('index');
+        Route::patch  ('/episodes/{episode}/watch', 'watch')->name('watch');
+    });
 });
 
-Route::controller(EpisodesController::class)->group(function() {
-    Route::get    ('/series/{series}/episodes', 'index')->name('index');
-    Route::patch  ('/episodes/{episode}/watch', 'watch')->name('watch');
-});
+
+
+
+
+
 
 //Route::get('/series/{series}/episodes', function(Series $series) {
 //  return $series->episodes;
